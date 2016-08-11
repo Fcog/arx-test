@@ -1,4 +1,23 @@
-$(function() {
-    // Punto 1.
-    // Crear código para filtrar pacientes por nombre.
+$(document).on('ready', function () {
+
+	$("#input_name_patient").on('input', function(event) {
+		event.preventDefault();
+
+		var value = $(this).val();
+
+		$(".name").each(function(index) {
+			$row = $(this);
+			if (index != 0) {
+				$row = $(this);
+
+				if ($row.text().indexOf(value) != 0) {
+					$(this).parent().hide();
+				}
+				else {
+					$(this).parent().show();
+				}
+			}
+		});
+	});
+
 });

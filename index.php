@@ -6,6 +6,7 @@ include 'models/my_patient.php';
 $patient_model = new my_patient();
 
 $patients = $patient_model->list_all();
+$patients_by_age = $patient_model->list_group_by_age();
 
 ?>
 
@@ -28,28 +29,30 @@ $patients = $patient_model->list_all();
 
         <p>
             <label for="patient_filter">Filter by Name</label>
-            <input type="text" name="patient_filter" />
+            <input type="text" id="input_name_patient" name="patient_filter" />
         </p>
 
         <p>
             <label for="patient_filter">Number of patients grouped by age</label>
             <ul>
                 <!-- Punto 3 Listar numero de paciente por edades -->
-                <li><span>Age:  </span><span>Patients quantity: </span></li>
+                <?php foreach($patients_by_age as $patient): ?>
+                    <li><span>Age: <?php echo $patient->patient_age ?> </span><span>Patients quantity: <?php echo $patient->quantity ?></span></li>
+                <?php endforeach ?>
             </ul>
         </p>
 
         <div class="row">
             <div class="col-xs-4">Name</div>
-            <div class="col-xs-4">Age</div>
+            <div class="col-xs-4 hidden-xs">Age</div>
             <div class="col-xs-4">Phone</div>
         </div>
 
         <!-- Punto 4 Esconde la columna Age para móviles -->
         <?php foreach($patients as $patient): ?>
             <div class="row">
-                <div class="col-xs-4"><?php echo $patient->patient_name; ?></div>
-                <div class="col-xs-4"><?php echo $patient->patient_age; ?></div>
+                <div class="col-xs-4 name"><?php echo $patient->patient_name; ?></div>
+                <div class="col-xs-4 hidden-xs"><?php echo $patient->patient_age; ?></div>
                 <div class="col-xs-4"><?php echo $patient->patient_phone; ?></div>
             </div>
         <?php endforeach; ?>
