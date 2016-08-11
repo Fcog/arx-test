@@ -17,7 +17,7 @@ class patient extends base
     public function list_all()
     {
         $result_array = array();
-        $result = $this->db->query('select * from patients');
+        $result = $this->db->query('select * from patients where patient_age >= 50');
 
         return parent::result_array($result);
     }
